@@ -52,30 +52,35 @@ class GameFragment : Fragment() {
                 false
         )
 
+
         // calling ViewModelProvider to provide us the services of ViewModel
         //the instance of this viewmodel is not destroyed when the fragment is
         Log.i("GamFragment", "Called ViewModelProvider")
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        //get the viewmodel that handles all the onclickListener
+        binding.gameViewModel = viewModel
+        //set lifeCycleOwner to this...fragment
+        binding.setLifecycleOwner(this)
 
 
-        binding.correctButton.setOnClickListener {
-            viewModel.onCorrect()
-
-
-        }
-        binding.skipButton.setOnClickListener {
-            viewModel.onSkip()
-
-        }
+//        binding.correctButton.setOnClickListener {
+//            viewModel.onCorrect()
+//
+//
+//        }
+//        binding.skipButton.setOnClickListener {
+//            viewModel.onSkip()
+//
+//        }
 
         //connecting to LiveData observation relationship
-        viewModel.score.observe(this, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
-
-        })
-        viewModel.word.observe(this, Observer { newWord ->
-            binding.wordText.text = newWord
-        })
+//        viewModel.score.observe(this, Observer { newScore ->
+//            binding.scoreText.text = newScore.toString()
+//
+//        })
+//        viewModel.word.observe(this, Observer { newWord ->
+//            binding.wordText.text = newWord
+//        })
         viewModel.eventGameFinish.observe(this, Observer { hasFinished ->
             if (hasFinished){
                 gameFinished()
